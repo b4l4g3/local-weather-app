@@ -3,8 +3,10 @@
   "proxy": "http://localhost:5000",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://b4l4g3.github.io/local-weather-app/",
   "dependencies": {
     "axios": "^0.18.0",
+    "npm": "^6.5.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-inlinesvg": "^0.8.3",
@@ -15,7 +17,9 @@
     "start": "set PORT=3001 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -25,5 +29,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
 }
