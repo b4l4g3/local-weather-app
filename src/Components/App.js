@@ -57,7 +57,7 @@ class App extends Component {
       .then(resp => resp.json())
       .then(resp => resp.ip)
       .then(resp => {
-        return fetch(`http://ip-api.com/json/${resp}`)
+        return fetch(`https://cors-anywhere.herokuapp.com/http://ip-api.com/json/${resp}`)
       })
       .then(resp => resp.json())
       .then(resp => {
