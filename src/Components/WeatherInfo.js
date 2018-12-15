@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
+import { formatAMPM } from './../helper.js';
 
 const colorIron = '#dee2e2';
 
@@ -8,20 +9,46 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: cetner;
   justify-content: center;
-  color: ${colorIron}
+  color: ${colorIron};
+  text-shadow: 0.2px 0.2px 3px #000;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
 `
 const Icon = styled.img`
-
+  height: ${props => props.mainTheme ? '160px' : '120px'};
+  margin-bottom: ${props => props.mainTheme ? '-25px' : '-15px'};
 `
 const Temperature = styled.p`
-  text-align: center;
+  font-size: ${props => props.mainTheme ? '70px' : '24px'};
+  padding-left: ${props => props.mainTheme ? '26px' : '0px' }
+  margin: 0px 0px;
+  letter-spacing: ${props => props.mainTheme ? '2px' : '0.5px'};
+  font-weight: ${props => props.mainTheme ? '400' : '600'};
+
+  &::after {
+    content:"°"
+  }
 `
 
 const Type = styled.p`
-  text-align: center;
+  margin-top: ${props => props.mainTheme ? '0px' : '12px'};
+  font-size: ${props => props.mainTheme ? '22px' : '15px'};
+  letter-spacing: ${props => props.mainTheme ? '1px' : '0.5px'};
+  font-weight: 600;
 `
+
+const Today = styled.p`
+  margin: 5px 0px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+`
+
 const WeekDay = styled.p`
-  text-align: center;
+  margin-bottom: 5px 0px;
+  font-size: 18.5px;
+  font-weight: 600;
 `
 
 const reqSvgs = require.context('./Icons', true, /\.svg$/)
@@ -40,14 +67,19 @@ export class WeatherInfo extends Component {
     const mainTheme = this.props.mainTheme;
     return (
       <Wrapper>
-        {weekDay ? (
+        {!(mainTheme) ? (
           <WeekDay>{weekDay}</WeekDay>
         ) : (
             <></>
           )}
-        <Icon src={svgs[`./${weatherData.icon}.svg`]} />
-        <Temperature mainTheme={mainTheme}>{weatherData.temp}</Temperature>
-        <Type>{weatherData.type}</Type>
+        <Icon mainTheme={mainTheme} src={svgs[`./${weatherData.icon}.svg`]} />
+        <Temperature mainTheme={mainTheme}>{Math.round(weatherData.temp)}</Temperature>
+        {mainTheme ? (
+          <Today>Today {formatAMPM(new Date())}</Today>
+        ) : (
+            <></>
+          )}
+        <Type mainTheme={mainTheme} >{weatherData.type}</Type>
       </Wrapper>
     )
   }

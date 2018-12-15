@@ -8,15 +8,24 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
+const Border = styled.div`
+  border: 1.5px solid #dee2e2;
+  border-radius: 5px;
+  height: 100px;
+  opacity: 0.65;
+`
+
 export class Forecast extends Component {
     render() {
         const nextDays = this.props.nextDays;
         const { nextDay1, nextDay2, nextDay3 } = nextDays;
         return (
             <Wrapper>
-                <WeatherInfo mainTheme={true} weekDay={nextDay1.weekDay} weatherData={nextDay1} />
-                <WeatherInfo mainTheme={true} weekDay={nextDay2.weekDay} weatherData={nextDay2} />
-                <WeatherInfo mainTheme={true} weekDay={nextDay3.weekDay} weatherData={nextDay3} />
+                <WeatherInfo weekDay={nextDay1.weekDay} weatherData={nextDay1} />
+                <Border />
+                <WeatherInfo weekDay={nextDay2.weekDay} weatherData={nextDay2} />
+                <Border />
+                <WeatherInfo weekDay={nextDay3.weekDay} weatherData={nextDay3} />
             </Wrapper>
         )
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { setStateTemplate } from './../helper.js';
 import WeatherInfo from './WeatherInfo';
 import Forecast from './Forecast';
@@ -21,14 +21,16 @@ const nightImgs = reqNightImgs
     return images
   }, {})
 
-
+const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+`
 
 const Background = styled.div`
 position: fixed;
 left: 0;
 right: 0;
 z-index: -1;
-
+transform: scale(1.1);
 display: block;
 background-image: ${props => props.bgUrl};
 background-size: cover;
@@ -88,12 +90,13 @@ class App extends Component {
     }
     return (
       <React.Fragment>
+        <GlobalStyle />
         {this.state.currently ? (
           <React.Fragment>
             <Background bgUrl={bgUrl} />
             <Wrapper>
-                <WeatherInfo mainTheme={false} weatherData={this.state.currently} />
-                <Forecast nextDays={this.state.nextDays} />
+              <WeatherInfo mainTheme weatherData={this.state.currently} />
+              <Forecast nextDays={this.state.nextDays} />
             </Wrapper>
           </React.Fragment>
         ) : (
