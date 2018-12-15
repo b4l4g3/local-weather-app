@@ -34,31 +34,34 @@ const setStateTemplate = (resp) => {
       }
     };
 
+    const { currently, daily } = resp;
+    const dailyData = daily.data;
+
     return {
         currently: {
-          icon: resp.currently.icon,
-          temp: resp.currently.temperature,
-          type: weatherType[resp.currently.icon],
-          isDayLight: isDayLight(resp.daily.data[0].sunriseTime, resp.daily.data[0].sunsetTime)
+          icon: currently.icon,
+          temp: currently.temperature,
+          type: weatherType[currently.icon],
+          isDayLight: isDayLight(dailyData[0].sunriseTime, dailyData[0].sunsetTime)
         },
         nextDays: {
           nextDay1: {
-            icon: resp.daily.data[1].icon,
-            temp: resp.daily.data[1].temperatureHigh,
-            type: weatherType[resp.daily.data[1].icon],
-            weekDay: dayOfWeek(resp.daily.data[1].time)
+            icon: dailyData[1].icon,
+            temp: dailyData[1].temperatureHigh,
+            type: weatherType[dailyData[1].icon],
+            weekDay: dayOfWeek(dailyData[1].time)
           },
           nextDay2: {
-            icon: resp.daily.data[2].icon,
-            temp: resp.daily.data[2].temperatureHigh,
-            type: weatherType[resp.daily.data[2].icon],
-            weekDay: dayOfWeek(resp.daily.data[2].time)
+            icon: dailyData[2].icon,
+            temp: dailyData[2].temperatureHigh,
+            type: weatherType[dailyData[2].icon],
+            weekDay: dayOfWeek(dailyData[2].time)
           },
           nextDay3: {
-            icon: resp.daily.data[3].icon,
-            temp: resp.daily.data[3].temperatureHigh,
-            type: weatherType[resp.daily.data[3].icon],
-            weekDay: dayOfWeek(resp.daily.data[3].time)
+            icon: dailyData[3].icon,
+            temp: dailyData[3].temperatureHigh,
+            type: weatherType[dailyData[3].icon],
+            weekDay: dayOfWeek(dailyData[3].time)
           }
         }
       }

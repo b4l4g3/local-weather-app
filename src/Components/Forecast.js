@@ -11,11 +11,12 @@ const Wrapper = styled.div`
 export class Forecast extends Component {
     render() {
         const nextDays = this.props.nextDays;
+        const { nextDay1, nextDay2, nextDay3 } = nextDays;
         return (
             <Wrapper>
-                <WeatherInfo mainTheme={true} weekDay={nextDays.nextDay1.weekDay} weatherData={nextDays.nextDay1} />
-                <WeatherInfo mainTheme={true} weekDay={nextDays.nextDay2.weekDay} weatherData={nextDays.nextDay2} />
-                <WeatherInfo mainTheme={true} weekDay={nextDays.nextDay3.weekDay} weatherData={nextDays.nextDay3} />
+                <WeatherInfo mainTheme={true} weekDay={nextDay1.weekDay} weatherData={nextDay1} />
+                <WeatherInfo mainTheme={true} weekDay={nextDay2.weekDay} weatherData={nextDay2} />
+                <WeatherInfo mainTheme={true} weekDay={nextDay3.weekDay} weatherData={nextDay3} />
             </Wrapper>
         )
     }
