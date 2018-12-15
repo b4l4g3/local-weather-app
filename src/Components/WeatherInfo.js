@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   text-align: center;
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
+  font-weight: 600;
 `
 const Icon = styled.img`
   height: ${props => props.mainTheme ? '160px' : '120px'};
@@ -21,7 +22,7 @@ const Icon = styled.img`
 `
 const Temperature = styled.p`
   font-size: ${props => props.mainTheme ? '70px' : '24px'};
-  padding-left: ${props => props.mainTheme ? '26px' : '0px' }
+  padding-left: ${props => props.mainTheme ? '26px' : '0px'}
   margin: 0px 0px;
   letter-spacing: ${props => props.mainTheme ? '2px' : '0.5px'};
   font-weight: ${props => props.mainTheme ? '400' : '600'};
@@ -30,27 +31,20 @@ const Temperature = styled.p`
     content:"°"
   }
 `
-
 const Type = styled.p`
   margin-top: ${props => props.mainTheme ? '0px' : '12px'};
   font-size: ${props => props.mainTheme ? '22px' : '15px'};
   letter-spacing: ${props => props.mainTheme ? '1px' : '0.5px'};
-  font-weight: 600;
 `
-
 const Today = styled.p`
   margin: 5px 0px;
   font-size: 14px;
   letter-spacing: 0.5px;
-  font-weight: 600;
 `
-
 const WeekDay = styled.p`
   margin-bottom: 5px 0px;
   font-size: 18.5px;
-  font-weight: 600;
 `
-
 const reqSvgs = require.context('./Icons', true, /\.svg$/)
 
 const svgs = reqSvgs
@@ -61,6 +55,7 @@ const svgs = reqSvgs
   }, {})
 
 export class WeatherInfo extends Component {
+
   render() {
     const weatherData = this.props.weatherData;
     const weekDay = this.props.weekDay;
@@ -70,7 +65,7 @@ export class WeatherInfo extends Component {
         {!(mainTheme) ? (
           <WeekDay>{weekDay}</WeekDay>
         ) : (
-            <></>
+          <></>
           )}
         <Icon mainTheme={mainTheme} src={svgs[`./${weatherData.icon}.svg`]} />
         <Temperature mainTheme={mainTheme}>{Math.round(weatherData.temp)}</Temperature>

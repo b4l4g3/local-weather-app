@@ -39,10 +39,12 @@ const setStateTemplate = (resp) => {
 
   return {
     currently: {
-      icon: currently.icon,
-      temp: currently.temperature,
-      type: weatherType[currently.icon],
-      isDayLight: isDayLight(dailyData[0].sunriseTime, dailyData[0].sunsetTime)
+      today: {
+        icon: currently.icon,
+        temp: currently.temperature,
+        type: weatherType[currently.icon],
+        isDayLight: isDayLight(dailyData[0].sunriseTime, dailyData[0].sunsetTime)
+      }
     },
     nextDays: {
       nextDay1: {
@@ -103,4 +105,12 @@ const getPaths = (DayOrNight) => {
   }
 }
 
-export { setStateTemplate, formatAMPM, getPaths }
+function toCelsius(fahrenheit) {
+  return (fahrenheit - 32) * 5 / 9;
+}
+
+function toFahrenheit(celsius) {
+  return (celsius * 9 / 5) + 32;
+}
+
+export { setStateTemplate, formatAMPM, getPaths, toCelsius, toFahrenheit }
