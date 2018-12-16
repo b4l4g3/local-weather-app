@@ -18,7 +18,7 @@ background-image: ${props => props.bgUrl};
 background-size: cover;
 width: 100%;
 height: 100%;
-filter: blur(2px);
+filter: blur(1.5px);
 `
 const Wrapper = styled.div`
   height: 100vh;
@@ -84,6 +84,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // Get data from the weather API  -   [Function's location: ./../helper.js]
     dataFetch(this, setStateTemplate);
   }
 
@@ -101,8 +102,17 @@ class App extends Component {
           <React.Fragment>
             <Background bgUrl={bgUrl} />
             <Wrapper>
-              <ToggleUnits><Unit style={this.state.style.celsius} onClick={this.handleCelsiusChange}>°C</Unit><Unit style={this.state.style.fahrenheit} onClick={this.handleFahrenheitChange}>°F</Unit></ToggleUnits>
-              <WeatherInfo celsiusChange={this.handleCelsiusChange} fahrenheitChange={this.handleFahrenheitChange} mainTheme weatherData={this.state.currently.today} />
+              <ToggleUnits>
+                <Unit style={this.state.style.celsius} onClick={this.handleCelsiusChange}>°C</Unit>
+                <Unit style={this.state.style.fahrenheit} onClick={this.handleFahrenheitChange}>°F</Unit>
+                {/* TODO: add a line under the active unit */}
+                </ToggleUnits>
+              <WeatherInfo 
+              celsiusChange={this.handleCelsiusChange} 
+              fahrenheitChange={this.handleFahrenheitChange} 
+              mainTheme 
+              weatherData={this.state.currently.today}
+               />
               <Forecast nextDays={this.state.nextDays} />
             </Wrapper>
           </React.Fragment>

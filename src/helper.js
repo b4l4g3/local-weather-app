@@ -1,4 +1,4 @@
-const setStateTemplate = (resp) => {
+const setStateTemplate = (weatherData) => {
   const dayOfWeek = (time) => {
     const days = [
       'SUN',
@@ -14,6 +14,7 @@ const setStateTemplate = (resp) => {
   }
 
   const weatherType = {
+    //icon-names from weatherData : weather types
     'clear-day': 'Clear',
     'clear-night': 'Clear',
     'cloudy': 'Cloudy',
@@ -34,7 +35,7 @@ const setStateTemplate = (resp) => {
     }
   };
 
-  const { currently, daily } = resp;
+  const { currently, daily } = weatherData;
   const dailyData = daily.data;
 
   return {
@@ -81,6 +82,7 @@ const formatAMPM = (date) => {
 }
 
 const getPaths = (DayOrNight) => {
+  // Find the right background with the help of the [isDayLight] function from './helper.js'
   const reqDayImgs = require.context('./Components/Background/Day', true, /\.jpg$/)
   const reqNightImgs = require.context('./Components/Background/Night', true, /\.jpg$/)
 
@@ -98,12 +100,14 @@ const getPaths = (DayOrNight) => {
       return images
     }, {})
 
-  if(DayOrNight === 'day') {
+  if (DayOrNight === 'day') {
     return dayImgs
   } else if (DayOrNight === 'night') {
     return nightImgs
   }
 }
+
+
 
 function toCelsius(fahrenheit) {
   return (fahrenheit - 32) * 5 / 9;
@@ -115,6 +119,7 @@ function toFahrenheit(celsius) {
 
 const convertTemp = (state, targetUnitConverter) => {
   let finalState = state;
+  // Iterate through state to get temperature values
   Object.keys(state).forEach((key) => {
     let a;
     a = key;
@@ -123,6 +128,11 @@ const convertTemp = (state, targetUnitConverter) => {
       b = key;
       Object.keys(state[a][key]).forEach((key) => {
         if (key === 'temp') {
+          /**
+           * Convert temperature values to the target value, using a targetUnitConverter function,
+           * which is either [toCelsius(fahrenheit)] or [toFahrenheit(celsius)],
+           * imported from './helper.js'
+           */
           finalState[a][b][key] = targetUnitConverter(state[a][b][key])
         }
       })
@@ -130,25 +140,30 @@ const convertTemp = (state, targetUnitConverter) => {
   })
 }
 
-const dataFetch = (comp, setStateFunc) => {
+const dataFetch = (component, setStateFunc) => {
+  // Get IP from API
   fetch('https://cors-anywhere.herokuapp.com/https://api.ipify.org/?format=json')
-  .then(resp => resp.json())
-  .then(resp => {
-    return fetch(`https://cors-anywhere.herokuapp.com/http://ip-api.com/json/${resp.ip}`)
-  })
-  .then(resp => resp.json())
-  .then(resp => {
-    const lat = Math.round(resp.lat);
-    const lon = Math.round(resp.lon);
-    return `${lat},${lon}`;
-  })
-  .then(resp => {
-    return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/390040fe85ad0e8ff9ff687e0b4da4f1/${resp}`)
-      .then(resp => resp.json())
-      .then(resp => {
-        comp.setState(setStateFunc(resp))
-      })
-  })
+    .then(resp => resp.json())
+    .then(resp => {
+      // Get location from API
+      return fetch(`https://cors-anywhere.herokuapp.com/http://ip-api.com/json/${resp.ip}`)
+    })
+    .then(resp => resp.json())
+    .then(resp => {
+      // Prepare coordinates for the weather API
+      const lat = Math.round(resp.lat);
+      const lon = Math.round(resp.lon);
+      return `${lat},${lon}`;
+    })
+    .then(resp => {
+      // Get data from the weather API
+      return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/390040fe85ad0e8ff9ff687e0b4da4f1/${resp}`)
+        .then(resp => resp.json())
+        .then(resp => {
+          // Add data to the state using the [setStateTemplate(weatherData)] function from './helper.js'
+          component.setState(setStateFunc(resp))
+        })
+    })
 }
 
 export { setStateTemplate, formatAMPM, getPaths, convertTemp, dataFetch, toCelsius, toFahrenheit }

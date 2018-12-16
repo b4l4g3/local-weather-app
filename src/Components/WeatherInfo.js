@@ -39,7 +39,7 @@ const Type = styled.p`
 const Today = styled.p`
   margin: 5px 0px;
   font-size: 14px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 `
 const WeekDay = styled.p`
   margin-bottom: 5px 0px;
