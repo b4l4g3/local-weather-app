@@ -142,11 +142,11 @@ const convertTemp = (state, targetUnitConverter) => {
 
 const dataFetch = (component, setStateFunc) => {
   // Get IP from API
-  fetch('https://cors-anywhere.herokuapp.com/https://api.ipify.org/?format=json')
+  fetch('https://whispering-savannah-31637.herokuapp.com/https://api.ipify.org/?format=json')
     .then(resp => resp.json())
     .then(resp => {
       // Get location from API
-      return fetch(`https://cors-anywhere.herokuapp.com/http://ip-api.com/json/${resp.ip}`)
+      return fetch(`https://whispering-savannah-31637.herokuapp.com/http://ip-api.com/json/${resp.ip}`)
     })
     .then(resp => resp.json())
     .then(resp => {
@@ -157,7 +157,7 @@ const dataFetch = (component, setStateFunc) => {
     })
     .then(resp => {
       // Get data from the weather API
-      return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/390040fe85ad0e8ff9ff687e0b4da4f1/${resp}`)
+      return fetch(`https://whispering-savannah-31637.herokuapp.com/https://api.darksky.net/forecast/390040fe85ad0e8ff9ff687e0b4da4f1/${resp}`)
         .then(resp => resp.json())
         .then(resp => {
           // Add data to the state using the [setStateTemplate(weatherData)] function from './helper.js'

@@ -3,40 +3,32 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { setStateTemplate, getPaths, convertTemp, dataFetch, toCelsius, toFahrenheit } from './../helper.js';
 import WeatherInfo from './WeatherInfo';
 import Forecast from './Forecast';
+import ToggleUnits from './ToggleUnits';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto');
 `
 const Background = styled.div`
-position: fixed;
-left: 0;
-right: 0;
-z-index: -1;
-transform: scale(1.1);
-display: block;
-background-image: ${props => props.bgUrl};
-background-size: cover;
-width: 100%;
-height: 100%;
-filter: blur(1.5px);
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  transform: scale(1.1);
+  display: block;
+  background-image: ${props => props.bgUrl};
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  filter: blur(1.5px);
 `
+
 const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-`
-const ToggleUnits = styled.div`
-  margin-top: -15px;
-  text-shadow: 0.2px 0.2px 3px #000;
-  font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-`
-
-const Unit = styled.span`
-  margin: 0px 15px;
+  user-select: none;
 `
 
 class App extends Component {
@@ -47,9 +39,10 @@ class App extends Component {
     this.state = {
       scale: 'f',
       style: {
-        celsius:  {color: `#8c8c8c`},
-        fahrenheit: {color: `#dee2e2`}
-      }
+        celsius: { color: `#8c8c8c` },
+        fahrenheit: { color: `#dee2e2` }
+      },
+      pose: 'left'
     }
   }
 
@@ -59,9 +52,10 @@ class App extends Component {
       this.setState({
         scale: 'f',
         style: {
-          celsius:  {color: `#8c8c8c`},
-          fahrenheit: {color: `#dee2e2`}
-        }
+          celsius: { color: `#8c8c8c` },
+          fahrenheit: { color: `#dee2e2` }
+        },
+        pose: this.state.pose === 'left' ? 'right' : 'left'
       })
     } else {
       return;
@@ -74,9 +68,10 @@ class App extends Component {
       this.setState({
         scale: 'c',
         style: {
-          celsius:  {color: `#dee2e2`},
-          fahrenheit: {color: `#8c8c8c`}
-        }
+          celsius: { color: `#dee2e2` },
+          fahrenheit: { color: `#8c8c8c` }
+        },
+        pose: this.state.pose === 'left' ? 'right' : 'left'
       })
     } else {
       return;
@@ -102,21 +97,25 @@ class App extends Component {
           <React.Fragment>
             <Background bgUrl={bgUrl} />
             <Wrapper>
-              <ToggleUnits>
-                <Unit style={this.state.style.celsius} onClick={this.handleCelsiusChange}>°C</Unit>
-                <Unit style={this.state.style.fahrenheit} onClick={this.handleFahrenheitChange}>°F</Unit>
-                {/* TODO: add a line under the active unit */}
-                </ToggleUnits>
-              <WeatherInfo 
-              celsiusChange={this.handleCelsiusChange} 
-              fahrenheitChange={this.handleFahrenheitChange} 
-              mainTheme 
-              weatherData={this.state.currently.today}
-               />
+              <ToggleUnits
+                slidePosition={this.state.pose}
+                celsiusStyle={this.state.style.celsius}
+                fahrenheitStyle={this.state.style.fahrenheit}
+                handleCelsiusChange={this.handleCelsiusChange}
+                handleFahrenheitChange={this.handleFahrenheitChange}
+              >
+              </ToggleUnits>
+              <WeatherInfo
+                celsiusChange={this.handleCelsiusChange}
+                fahrenheitChange={this.handleFahrenheitChange}
+                mainTheme
+                weatherData={this.state.currently.today}
+              />
               <Forecast nextDays={this.state.nextDays} />
             </Wrapper>
           </React.Fragment>
         ) : (
+          // TODO: Add style to this.
             <p>Loading.</p>
           )}
       </React.Fragment>

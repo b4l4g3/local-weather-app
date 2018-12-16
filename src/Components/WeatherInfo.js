@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   font-weight: 600;
 `
 const Icon = styled.img`
+  z-index: -1;
   height: ${props => props.mainTheme ? '160px' : '120px'};
   margin-bottom: ${props => props.mainTheme ? '-25px' : '-15px'};
 `
