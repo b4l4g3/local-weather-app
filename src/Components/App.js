@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { setStateTemplate, getPaths, toCelsius, toFahrenheit } from './../helper.js';
+import { setStateTemplate, getPaths, convertTemp, dataFetch, toCelsius, toFahrenheit } from './../helper.js';
 import WeatherInfo from './WeatherInfo';
 import Forecast from './Forecast';
 
@@ -53,43 +53,9 @@ class App extends Component {
     }
   }
 
-  getLocation() {
-    fetch('https://cors-anywhere.herokuapp.com/https://api.ipify.org/?format=json')
-      .then(resp => resp.json())
-      .then(resp => {
-        return fetch(`https://cors-anywhere.herokuapp.com/http://ip-api.com/json/${resp.ip}`)
-      })
-      .then(resp => resp.json())
-      .then(resp => {
-        const lat = Math.round(resp.lat);
-        const lon = Math.round(resp.lon);
-        return `${lat},${lon}`;
-      })
-      .then(resp => {
-        return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/390040fe85ad0e8ff9ff687e0b4da4f1/${resp}`)
-          .then(resp => resp.json())
-          .then(resp => {
-            this.setState(setStateTemplate(resp))
-          })
-      })
-  }
-
   handleFahrenheitChange() {
-    let finalState = this.state;
     if (this.state.scale === 'c') {
-      Object.keys(this.state).forEach((key) => {
-        let a;
-        a = key;
-        Object.keys(this.state[key]).forEach((key) => {
-          let b;
-          b = key;
-          Object.keys(this.state[a][key]).forEach((key) => {
-            if (key === 'temp') {
-              finalState[a][b][key] = toFahrenheit(this.state[a][b][key])
-            }
-          })
-        })
-      });
+      convertTemp(this.state, toFahrenheit);
       this.setState({
         scale: 'f',
         style: {
@@ -103,21 +69,8 @@ class App extends Component {
   }
 
   handleCelsiusChange() {
-    let finalState = this.state;
     if (this.state.scale === 'f') {
-      Object.keys(this.state).forEach((key) => {
-        let a;
-        a = key;
-        Object.keys(this.state[key]).forEach((key) => {
-          let b;
-          b = key;
-          Object.keys(this.state[a][key]).forEach((key) => {
-            if (key === 'temp') {
-              finalState[a][b][key] = toCelsius(this.state[a][b][key])
-            }
-          })
-        })
-      });
+      convertTemp(this.state, toCelsius);
       this.setState({
         scale: 'c',
         style: {
@@ -131,7 +84,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getLocation();
+    dataFetch(this, setStateTemplate);
   }
 
   render() {

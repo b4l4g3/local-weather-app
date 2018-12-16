@@ -55,6 +55,23 @@ const svgs = reqSvgs
   }, {})
 
 export class WeatherInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.updateDate = this.updateDate.bind(this);
+    this.state = { 
+      time: formatAMPM(new Date())
+     }
+  }
+
+  updateDate() {
+    this.setState({
+      time: formatAMPM(new Date())
+    })
+  }
+
+  componentDidMount() {
+    setInterval(this.updateDate, 1000)
+  }
 
   render() {
     const weatherData = this.props.weatherData;
@@ -70,7 +87,7 @@ export class WeatherInfo extends Component {
         <Icon mainTheme={mainTheme} src={svgs[`./${weatherData.icon}.svg`]} />
         <Temperature mainTheme={mainTheme}>{Math.round(weatherData.temp)}</Temperature>
         {mainTheme ? (
-          <Today>Today {formatAMPM(new Date())}</Today>
+          <Today>Today {this.state.time}</Today>
         ) : (
             <></>
           )}

@@ -18,8 +18,8 @@ const setStateTemplate = (resp) => {
     'clear-night': 'Clear',
     'cloudy': 'Cloudy',
     'fog': 'Foggy',
-    'partly-cloudy-day': 'Partly cloudy',
-    'partly-cloudy-night': 'Partly cloudy',
+    'partly-cloudy-day': 'Partly Cloudy',
+    'partly-cloudy-night': 'Partly Cloudy',
     'rain': 'Rainy',
     'snow': 'Snow',
     'sleet': 'Sleet',
@@ -113,4 +113,42 @@ function toFahrenheit(celsius) {
   return (celsius * 9 / 5) + 32;
 }
 
-export { setStateTemplate, formatAMPM, getPaths, toCelsius, toFahrenheit }
+const convertTemp = (state, targetUnitConverter) => {
+  let finalState = state;
+  Object.keys(state).forEach((key) => {
+    let a;
+    a = key;
+    Object.keys(state[key]).forEach((key) => {
+      let b;
+      b = key;
+      Object.keys(state[a][key]).forEach((key) => {
+        if (key === 'temp') {
+          finalState[a][b][key] = targetUnitConverter(state[a][b][key])
+        }
+      })
+    })
+  })
+}
+
+const dataFetch = (comp, setStateFunc) => {
+  fetch('https://cors-anywhere.herokuapp.com/https://api.ipify.org/?format=json')
+  .then(resp => resp.json())
+  .then(resp => {
+    return fetch(`https://cors-anywhere.herokuapp.com/http://ip-api.com/json/${resp.ip}`)
+  })
+  .then(resp => resp.json())
+  .then(resp => {
+    const lat = Math.round(resp.lat);
+    const lon = Math.round(resp.lon);
+    return `${lat},${lon}`;
+  })
+  .then(resp => {
+    return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/390040fe85ad0e8ff9ff687e0b4da4f1/${resp}`)
+      .then(resp => resp.json())
+      .then(resp => {
+        comp.setState(setStateFunc(resp))
+      })
+  })
+}
+
+export { setStateTemplate, formatAMPM, getPaths, convertTemp, dataFetch, toCelsius, toFahrenheit }
