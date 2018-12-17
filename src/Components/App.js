@@ -29,6 +29,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   user-select: none;
+  overflow: hidden;
 `
 
 class App extends Component {
