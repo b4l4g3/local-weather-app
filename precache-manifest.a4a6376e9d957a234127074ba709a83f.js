@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/local-weather-app/static/media/rain.ebb46ef8.jpg"
   },
   {
-    "revision": "91f8b63db586dd887928",
-    "url": "/local-weather-app/static/js/main.91f8b63d.chunk.js"
+    "revision": "2bc0982ebe02403911a2",
+    "url": "/local-weather-app/static/js/main.2bc0982e.chunk.js"
   },
   {
     "revision": "fe8db27c86d1acbc9759",
@@ -116,7 +116,7 @@ self.__precacheManifest = [
     "url": "/local-weather-app/static/js/1.0135eea2.chunk.js"
   },
   {
-    "revision": "55c5d299987a509c7a8310bf12702575",
+    "revision": "8df4f5da252a97aef1d495b2b1166dec",
     "url": "/local-weather-app/index.html"
   }
 ];
