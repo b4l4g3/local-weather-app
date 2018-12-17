@@ -1,6 +1,6 @@
 {
-  "main.js": "/local-weather-app/static/js/main.2bc0982e.chunk.js",
-  "main.js.map": "/local-weather-app/static/js/main.2bc0982e.chunk.js.map",
+  "main.js": "/local-weather-app/static/js/main.65e9c6e5.chunk.js",
+  "main.js.map": "/local-weather-app/static/js/main.65e9c6e5.chunk.js.map",
   "static/js/1.0135eea2.chunk.js": "/local-weather-app/static/js/1.0135eea2.chunk.js",
   "static/js/1.0135eea2.chunk.js.map": "/local-weather-app/static/js/1.0135eea2.chunk.js.map",
   "runtime~main.js": "/local-weather-app/static/js/runtime~main.fe8db27c.js",
@@ -27,6 +27,6 @@
   "static/media/snow.svg": "/local-weather-app/static/media/snow.93140a78.svg",
   "static/media/wind.svg": "/local-weather-app/static/media/wind.e18b61b1.svg",
   "index.html": "/local-weather-app/index.html",
-  "precache-manifest.a4a6376e9d957a234127074ba709a83f.js": "/local-weather-app/precache-manifest.a4a6376e9d957a234127074ba709a83f.js",
+  "precache-manifest.753015f3fc15d0411592092a541627a7.js": "/local-weather-app/precache-manifest.753015f3fc15d0411592092a541627a7.js",
   "service-worker.js": "/local-weather-app/service-worker.js"
 }
