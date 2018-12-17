@@ -9,22 +9,46 @@ const Wrapper = styled.div`
 `
 
 const Border = styled.div`
-  border: 1.5px solid #dee2e2;
+  border-left: 3.5px solid #dee2e2;
   border-radius: 5px;
   height: 100px;
   opacity: 0.65;
 `
 
+
+
 export class Forecast extends Component {
-    render() {     
+    render() {
         const nextDays = this.props.nextDays;
+        let counter = 0;
+        const nextDaysComps = []
+        nextDays.forEach((day) => {
+            const comp = <React.Fragment key={day.weekDay}>
+                {!(nextDays[0] === day) ? (
+                    <Border />
+                ) : (
+                        <></>
+                    )}
+                <WeatherInfo weekDay={day.weekDay} weatherData={day} />
+            </React.Fragment>;
+            counter++;
+            if (window.innerWidth < 700 && counter > 3) {
+                return;
+            }
+            switch (true) {
+                case window.innerWidth < 890 && counter >= 6:
+                    return;
+                case window.innerWidth < 770 && counter >= 5:
+                    return;
+                case window.innerWidth < 650 && counter >= 4:
+                    return;
+                default:
+                    nextDaysComps.push(comp);
+            }
+        });
         return (
             <Wrapper>
-                <WeatherInfo weekDay={nextDays[0].weekDay} weatherData={nextDays[0]} />
-                <Border />
-                <WeatherInfo weekDay={nextDays[1].weekDay} weatherData={nextDays[1]} />
-                <Border />
-                <WeatherInfo weekDay={nextDays[2].weekDay} weatherData={nextDays[2]} />
+                {nextDaysComps}
             </Wrapper>
         )
     }
