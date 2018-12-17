@@ -37,6 +37,16 @@ const setStateTemplate = (weatherData) => {
 
   const { currently, daily } = weatherData;
   const dailyData = daily.data;
+  const today = dailyData.shift();
+
+  const nextDays = dailyData.map(key => {
+      return {
+      icon: key.icon,
+      temp: key.temperatureHigh,
+      type: weatherType[key.icon],
+      weekDay: dayOfWeek(key.time)
+    }
+  });
 
   return {
     currently: {
@@ -44,29 +54,10 @@ const setStateTemplate = (weatherData) => {
         icon: currently.icon,
         temp: currently.temperature,
         type: weatherType[currently.icon],
-        isDayLight: isDayLight(dailyData[0].sunriseTime, dailyData[0].sunsetTime)
+        isDayLight: isDayLight(today.sunriseTime, today.sunsetTime)
       }
     },
-    nextDays: {
-      nextDay1: {
-        icon: dailyData[1].icon,
-        temp: dailyData[1].temperatureHigh,
-        type: weatherType[dailyData[1].icon],
-        weekDay: dayOfWeek(dailyData[1].time)
-      },
-      nextDay2: {
-        icon: dailyData[2].icon,
-        temp: dailyData[2].temperatureHigh,
-        type: weatherType[dailyData[2].icon],
-        weekDay: dayOfWeek(dailyData[2].time)
-      },
-      nextDay3: {
-        icon: dailyData[3].icon,
-        temp: dailyData[3].temperatureHigh,
-        type: weatherType[dailyData[3].icon],
-        weekDay: dayOfWeek(dailyData[3].time)
-      }
-    }
+    nextDays
   }
 }
 

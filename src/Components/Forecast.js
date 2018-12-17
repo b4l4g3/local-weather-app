@@ -16,16 +16,15 @@ const Border = styled.div`
 `
 
 export class Forecast extends Component {
-    render() {
+    render() {     
         const nextDays = this.props.nextDays;
-        const { nextDay1, nextDay2, nextDay3 } = nextDays;
         return (
             <Wrapper>
-                <WeatherInfo weekDay={nextDay1.weekDay} weatherData={nextDay1} />
+                <WeatherInfo weekDay={nextDays[0].weekDay} weatherData={nextDays[0]} />
                 <Border />
-                <WeatherInfo weekDay={nextDay2.weekDay} weatherData={nextDay2} />
+                <WeatherInfo weekDay={nextDays[1].weekDay} weatherData={nextDays[1]} />
                 <Border />
-                <WeatherInfo weekDay={nextDay3.weekDay} weatherData={nextDay3} />
+                <WeatherInfo weekDay={nextDays[2].weekDay} weatherData={nextDays[2]} />
             </Wrapper>
         )
     }

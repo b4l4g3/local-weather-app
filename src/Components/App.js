@@ -30,6 +30,11 @@ const Wrapper = styled.div`
   justify-content: space-around;
   user-select: none;
   overflow: hidden;
+  padding: 5%;
+
+  @media (min-width: 700px) {
+    padding: 2%;
+  }
 `
 
 class App extends Component {

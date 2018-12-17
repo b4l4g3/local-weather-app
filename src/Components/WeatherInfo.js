@@ -17,11 +17,11 @@ const Wrapper = styled.div`
   font-weight: 600;
 `
 const Icon = styled.img`
-  height: ${props => props.mainTheme ? '160px' : '120px'};
+  height: ${props => props.mainTheme ? '8em' : '6em'};
   margin-bottom: ${props => props.mainTheme ? '-25px' : '-15px'};
 `
 const Temperature = styled.p`
-  font-size: ${props => props.mainTheme ? '70px' : '24px'};
+  font-size: ${props => props.mainTheme ? '3.5em' : '1.2em'};
   padding-left: ${props => props.mainTheme ? '26px' : '0px'}
   margin: 0px 0px;
   letter-spacing: ${props => props.mainTheme ? '2px' : '0.5px'};
@@ -32,18 +32,22 @@ const Temperature = styled.p`
   }
 `
 const Type = styled.p`
+  font-size: ${props => props.mainTheme ? '22px' : '18px'};
   margin-top: ${props => props.mainTheme ? '0px' : '12px'};
-  font-size: ${props => props.mainTheme ? '22px' : '15px'};
   letter-spacing: ${props => props.mainTheme ? '1px' : '0.5px'};
+
+  @media (max-width: 350px) {
+    visibility: ${props => props.mainTheme ? 'visible' : 'hidden'};
+  }
 `
 const Today = styled.p`
+  font-size: 0.7em;
   margin: 5px 0px;
-  font-size: 14px;
   letter-spacing: 1px;
 `
 const WeekDay = styled.p`
-  margin-bottom: 5px 0px;
   font-size: 18.5px;
+  margin-bottom: 5px;
 `
 const reqSvgs = require.context('./Icons', true, /\.svg$/)
 
