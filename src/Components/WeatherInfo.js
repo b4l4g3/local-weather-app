@@ -15,21 +15,29 @@ const Wrapper = styled.div`
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 600;
+  
+  @media (max-width: 350px) {
+    margin-top: -100px;
+  }
 `
 const Icon = styled.img`
   height: ${props => props.mainTheme ? '8em' : '6em'};
   margin-bottom: ${props => props.mainTheme ? '-25px' : '-15px'};
+  @media (max-width: 350px) {
+    height: ${props => props.mainTheme ? '5em' : '4em'};
+  }
 `
 const Temperature = styled.p`
-  font-size: ${props => props.mainTheme ? '3.5em' : '1.2em'};
+  font-size: ${props => props.mainTheme ? '3.5em' : '1em'};
+  font-weight: ${props => props.mainTheme ? '400' : '600'}
   padding-left: ${props => props.mainTheme ? '26px' : '0px'}
-  margin: 0px 0px;
+  margin: 10px 0px;
   letter-spacing: ${props => props.mainTheme ? '2px' : '0.5px'};
-  font-weight: ${props => props.mainTheme ? '400' : '600'};
 
   &::after {
     content:"°"
   }
+  
 `
 const Type = styled.p`
   font-size: ${props => props.mainTheme ? '22px' : '18px'};
@@ -37,7 +45,7 @@ const Type = styled.p`
   letter-spacing: ${props => props.mainTheme ? '1px' : '0.5px'};
 
   @media (max-width: 350px) {
-    visibility: ${props => props.mainTheme ? 'visible' : 'hidden'};
+    ${props => props.mainTheme ? '' : 'display: none'};
   }
 `
 const Today = styled.p`

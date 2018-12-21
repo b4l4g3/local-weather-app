@@ -13,6 +13,10 @@ const Border = styled.div`
   border-radius: 5px;
   height: 100px;
   opacity: 0.65;
+
+  @media (max-width: 350px) {
+   display: none;
+  }
 `
 
 

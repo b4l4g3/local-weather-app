@@ -7,6 +7,10 @@ const ToggleUnitsWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 600;
+
+  @media (max-width: 350px) {
+    margin-top: -45px;
+  }
 `
 
 const Unit = styled.span`
