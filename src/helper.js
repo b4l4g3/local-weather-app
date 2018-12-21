@@ -1,3 +1,29 @@
+const getPaths = (DayOrNight) => {
+  // Find the right background with the help of the [isDayLight] function from './helper.js'
+  const reqDayImgs = require.context('./Components/Background/Day', true, /\.jpg$/)
+  const reqNightImgs = require.context('./Components/Background/Night', true, /\.jpg$/)
+
+  const dayImgs = reqDayImgs
+    .keys()
+    .reduce((images, path) => {
+      images[path] = reqDayImgs(path)
+      return images
+    }, {})
+
+  const nightImgs = reqNightImgs
+    .keys()
+    .reduce((images, path) => {
+      images[path] = reqNightImgs(path)
+      return images
+    }, {})
+
+  if (DayOrNight === 'day') {
+    return dayImgs
+  } else if (DayOrNight === 'night') {
+    return nightImgs
+  }
+}
+
 const setStateTemplate = (weatherData) => {
   const dayOfWeek = (time) => {
     const days = [
@@ -35,6 +61,8 @@ const setStateTemplate = (weatherData) => {
     }
   };
 
+  
+
   const { currently, daily } = weatherData;
   const dailyData = daily.data;
   const today = dailyData.shift();
@@ -49,12 +77,13 @@ const setStateTemplate = (weatherData) => {
   });
 
   return {
+    bgUrl: isDayLight(today.sunriseTime, today.sunsetTime) ? `url(${getPaths('day')[`./${currently.icon}.jpg`]})` :
+        `url(${getPaths('night')[`./${currently.icon}.jpg`]})`,
     currently: {
       today: {
         icon: currently.icon,
         temp: currently.temperature,
         type: weatherType[currently.icon],
-        isDayLight: isDayLight(today.sunriseTime, today.sunsetTime)
       }
     },
     nextDays
@@ -72,31 +101,7 @@ const formatAMPM = (date) => {
   return strTime;
 }
 
-const getPaths = (DayOrNight) => {
-  // Find the right background with the help of the [isDayLight] function from './helper.js'
-  const reqDayImgs = require.context('./Components/Background/Day', true, /\.jpg$/)
-  const reqNightImgs = require.context('./Components/Background/Night', true, /\.jpg$/)
 
-  const dayImgs = reqDayImgs
-    .keys()
-    .reduce((images, path) => {
-      images[path] = reqDayImgs(path)
-      return images
-    }, {})
-
-  const nightImgs = reqNightImgs
-    .keys()
-    .reduce((images, path) => {
-      images[path] = reqNightImgs(path)
-      return images
-    }, {})
-
-  if (DayOrNight === 'day') {
-    return dayImgs
-  } else if (DayOrNight === 'night') {
-    return nightImgs
-  }
-}
 
 
 

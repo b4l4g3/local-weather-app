@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { setStateTemplate, getPaths, convertTemp, dataFetch, toCelsius, toFahrenheit } from './../helper.js';
+import { setStateTemplate, convertTemp, dataFetch, toCelsius, toFahrenheit } from './../helper.js';
 import WeatherInfo from './WeatherInfo';
 import Forecast from './Forecast';
 import ToggleUnits from './ToggleUnits';
@@ -90,18 +90,13 @@ class App extends Component {
   }
 
   render() {
-    let bgUrl;
-    if (this.state.currently) {
-      const isDayLight = this.state.currently.today.isDayLight;
-      isDayLight ? bgUrl = `url(${getPaths('day')[`./${this.state.currently.today.icon}.jpg`]})` :
-        bgUrl = `url(${getPaths('night')[`./${this.state.currently.today.icon}.jpg`]})`;
-    };
+
     return (
       <React.Fragment>
         <GlobalStyle />
         {this.state.currently ? (
           <React.Fragment>
-            <Background bgUrl={bgUrl} />
+            <Background bgUrl={this.state.bgUrl} />
             <Wrapper>
               <ToggleUnits
                 slidePosition={this.state.pose}
@@ -121,7 +116,7 @@ class App extends Component {
             </Wrapper>
           </React.Fragment>
         ) : (
-          // TODO: Add style to this.
+            // TODO: Add style to this.
             <p>Loading.</p>
           )}
       </React.Fragment>
