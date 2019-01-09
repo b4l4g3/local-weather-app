@@ -4,6 +4,11 @@ import { setStateTemplate, convertTemp, dataFetch, toCelsius, toFahrenheit } fro
 import WeatherInfo from './WeatherInfo';
 import Forecast from './Forecast';
 import ToggleUnits from './ToggleUnits';
+import { pleaseWait } from "please-wait";
+
+
+let loaded = false;
+
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto');
@@ -86,7 +91,25 @@ class App extends Component {
 
   componentDidMount() {
     // Get data from the weather API  -   [Function's location: ./../helper.js]
-    dataFetch(this, setStateTemplate);
+    if (loaded === false) {
+      window.loading_screen = pleaseWait({
+        logo: "./Icons/favicon.ico",
+        backgroundColor: '#ededed',
+        loadingHtml: `
+        <p>Downloading weather informations</p>
+        <p>It can take a few seconds</p>
+        <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+        </div>`
+      });
+    }
+    dataFetch(this, setStateTemplate, window, loaded);
+
+    //;
   }
 
   render() {

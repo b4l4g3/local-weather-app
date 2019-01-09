@@ -3,13 +3,15 @@ const getPaths = (DayOrNight) => {
   const reqDayImgs = require.context('./Components/Background/Day', true, /\.jpg$/)
   const reqNightImgs = require.context('./Components/Background/Night', true, /\.jpg$/)
 
+
+
   const dayImgs = reqDayImgs
     .keys()
     .reduce((images, path) => {
       images[path] = reqDayImgs(path)
       return images
     }, {})
-
+    console.dir(dayImgs)
   const nightImgs = reqNightImgs
     .keys()
     .reduce((images, path) => {
@@ -136,7 +138,7 @@ const convertTemp = (state, targetUnitConverter) => {
   })
 }
 
-const dataFetch = (component, setStateFunc) => {
+const dataFetch = (component, setStateFunc, closeLs, preventLsReload) => {
   // Get IP from API
   fetch('https://whispering-savannah-31637.herokuapp.com/https://api.ipify.org/?format=json')
     .then(resp => resp.json())
@@ -157,8 +159,12 @@ const dataFetch = (component, setStateFunc) => {
         .then(resp => resp.json())
         .then(resp => {
           // Add data to the state using the [setStateTemplate(weatherData)] function from './helper.js'
-          component.setState(setStateFunc(resp))
+          component.setState(setStateFunc(resp));
+          preventLsReload = true;
         })
+    })
+    .then(() => {
+      closeLs.loading_screen.finish();
     })
 }
 
