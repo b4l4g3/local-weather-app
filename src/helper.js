@@ -11,13 +11,14 @@ const getPaths = (DayOrNight) => {
       images[path] = reqDayImgs(path)
       return images
     }, {})
-    console.dir(dayImgs)
+    
   const nightImgs = reqNightImgs
     .keys()
     .reduce((images, path) => {
       images[path] = reqNightImgs(path)
       return images
     }, {})
+
 
   if (DayOrNight === 'day') {
     return dayImgs
@@ -77,7 +78,6 @@ const setStateTemplate = (weatherData) => {
       weekDay: dayOfWeek(key.time)
     }
   });
-
   return {
     bgUrl: isDayLight(today.sunriseTime, today.sunsetTime) ? `url(${getPaths('day')[`./${currently.icon}.jpg`]})` :
         `url(${getPaths('night')[`./${currently.icon}.jpg`]})`,
@@ -140,7 +140,7 @@ const convertTemp = (state, targetUnitConverter) => {
 
 const dataFetch = (component, setStateFunc, closeLs, preventLsReload) => {
   // Get IP from API
-  fetch('https://whispering-savannah-31637.herokuapp.com/https://api.ipdata.co/?api-key=b3d5e0169f7230932b950ce9b4b15c1fb1855c3aa0429d4b7569f222')
+  fetch('https://api.ipdata.co/?api-key=b3d5e0169f7230932b950ce9b4b15c1fb1855c3aa0429d4b7569f222')
     .then(resp => resp.json())
     .then(resp => {
       // Prepare coordinates for the weather API
