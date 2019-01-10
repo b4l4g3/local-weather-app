@@ -3,6 +3,11 @@ body.pg-loading {
   overflow: hidden;
 }
 
+.pre-loader-text {
+  margin: 35px 0px;
+  font-size: 20px;
+}
+
 /* line 21, ../src/please-wait.scss */
 .pg-loading-screen {
   position: fixed;

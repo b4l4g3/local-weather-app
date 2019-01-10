@@ -90,14 +90,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // Get data from the weather API  -   [Function's location: ./../helper.js]
+    //
     if (loaded === false) {
       window.loading_screen = pleaseWait({
         logo: "./Icons/favicon.ico",
         backgroundColor: '#ededed',
         loadingHtml: `
-        <p>Downloading weather informations</p>
-        <p>It can take a few seconds</p>
+        <p class="pre-loader-text">Fetching weather information. </p>
+        <p class="pre-loader-text">It may take a few seconds...</p>
         <div class="spinner">
         <div class="rect1"></div>
         <div class="rect2"></div>
@@ -107,6 +107,7 @@ class App extends Component {
         </div>`
       });
     }
+    // Get data from the weather API  -   [Function's location: ./../helper.js]
     dataFetch(this, setStateTemplate, window, loaded);
 
     //;

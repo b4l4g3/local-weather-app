@@ -140,17 +140,12 @@ const convertTemp = (state, targetUnitConverter) => {
 
 const dataFetch = (component, setStateFunc, closeLs, preventLsReload) => {
   // Get IP from API
-  fetch('https://whispering-savannah-31637.herokuapp.com/https://api.ipify.org/?format=json')
-    .then(resp => resp.json())
-    .then(resp => {
-      // Get location from API
-      return fetch(`https://whispering-savannah-31637.herokuapp.com/http://ip-api.com/json/${resp.ip}`)
-    })
+  fetch('https://whispering-savannah-31637.herokuapp.com/https://api.ipdata.co/?api-key=b3d5e0169f7230932b950ce9b4b15c1fb1855c3aa0429d4b7569f222')
     .then(resp => resp.json())
     .then(resp => {
       // Prepare coordinates for the weather API
-      const lat = Math.round(resp.lat);
-      const lon = Math.round(resp.lon);
+      const lat = Math.round(resp.latitude);
+      const lon = Math.round(resp.longitude);
       return `${lat},${lon}`;
     })
     .then(resp => {
