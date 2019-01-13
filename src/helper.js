@@ -138,7 +138,7 @@ const convertTemp = (state, targetUnitConverter) => {
   })
 }
 
-const dataFetch = (component, setStateFunc, closeLs, preventLsReload) => {
+const dataFetch = (component, closeLs, preventLsReload) => {
   // Get IP from API
   fetch('https://api.ipdata.co/?api-key=b3d5e0169f7230932b950ce9b4b15c1fb1855c3aa0429d4b7569f222')
     .then(resp => resp.json())
@@ -154,7 +154,7 @@ const dataFetch = (component, setStateFunc, closeLs, preventLsReload) => {
         .then(resp => resp.json())
         .then(resp => {
           // Add data to the state using the [setStateTemplate(weatherData)] function from './helper.js'
-          component.setState(setStateFunc(resp));
+          component.setState(setStateTemplate(resp));
           preventLsReload = true;
         })
     })
@@ -163,4 +163,4 @@ const dataFetch = (component, setStateFunc, closeLs, preventLsReload) => {
     })
 }
 
-export { setStateTemplate, formatAMPM, getPaths, convertTemp, dataFetch, toCelsius, toFahrenheit }
+export { formatAMPM, getPaths, convertTemp, dataFetch, toCelsius, toFahrenheit }

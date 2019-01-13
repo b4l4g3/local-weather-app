@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { setStateTemplate, convertTemp, dataFetch, toCelsius, toFahrenheit } from './../helper.js';
+import { convertTemp, dataFetch, toCelsius, toFahrenheit } from './../helper.js';
 import WeatherInfo from './WeatherInfo';
 import Forecast from './Forecast';
 import ToggleUnits from './ToggleUnits';
@@ -108,7 +108,7 @@ class App extends Component {
       });
     }
     // Get data from the weather API  -   [Function's location: ./../helper.js]
-    dataFetch(this, setStateTemplate, window, loaded);
+    dataFetch(this, window, loaded);
 
     //;
   }
