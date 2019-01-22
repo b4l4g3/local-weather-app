@@ -19,6 +19,9 @@ const Wrapper = styled.div`
   @media (max-width: 350px) {
     margin-top: -100px;
   }
+  @media (min-width: 800px) {
+    width: 150px;
+  }
 `
 const Icon = styled.img`
   height: ${props => props.mainTheme ? '8em' : '6em'};
